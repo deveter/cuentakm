@@ -129,7 +129,7 @@ def enviar_email_admin_mismatch_lunes(comercial, lectura_fin_anterior, lectura_i
     ]
     body = "\n".join(lines)
 
-    to_email = ["ppinar@tipsitpv.com"]
+    to_email = ["ivallejo@tipsitpv.com"]
     from_email = getattr(settings, "DEFAULT_FROM_EMAIL", None) or getattr(settings, "EMAIL_HOST_USER", None)
 
     email = EmailMessage(
