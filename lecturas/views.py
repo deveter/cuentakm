@@ -87,7 +87,7 @@ def enviar_email_admin_fin_semana(comercial, lectura_inicio, lectura_fin, kms_se
 
     body = "\n".join(lines)
 
-    to_email = ["ppinar@tipsitpv.com"]
+    to_email = ["ivallejo@tipsitpv.com"]
     from_email = getattr(settings, "DEFAULT_FROM_EMAIL", None) or getattr(settings, "EMAIL_HOST_USER", None)
 
     email = EmailMessage(
