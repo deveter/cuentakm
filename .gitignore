@@ -1,6 +1,14 @@
+# Entorno
+.venv/
 .env
-__pycache__/
-*.pyc
+.env.*
+
+# Django
 db.sqlite3
 media/
 staticfiles/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/

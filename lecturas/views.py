@@ -9,6 +9,8 @@ from django.utils import timezone
 
 from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -19,6 +21,10 @@ from .services.openai_km import extraer_km_desde_imagen  # <-- tu función de OC
 
 
 logger = logging.getLogger(__name__)
+
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+    def enforce_csrf(self, request):
+        return
 
 
 # -------------------------
@@ -149,6 +155,9 @@ def enviar_email_admin_mismatch_lunes(comercial, lectura_fin_anterior, lectura_i
 # -------------------------
 
 class ComercialesView(APIView):
+    authentication_classes = [CsrfExemptSessionAuthentication]
+    permission_classes = [AllowAny]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
     def get(self, request):
         qs = Comercial.objects.all().order_by("nombre")
         data = [{"id": c.id, "nombre": c.nombre} for c in qs]
@@ -162,7 +171,11 @@ class EstadoLecturasView(APIView):
     2) Si la ÚLTIMA lectura es "inicio_semana": solo "fin_semana"
     3) Si la ÚLTIMA lectura es "fin_semana": solo "inicio_semana"
     Además devolvemos la última lectura y semana/año actual.
+    
     """
+    authentication_classes = [CsrfExemptSessionAuthentication]
+    permission_classes = [AllowAny]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
     def get(self, request):
         comercial_id = request.query_params.get("comercial_id")
         if not comercial_id:
@@ -215,8 +228,10 @@ class EstadoLecturasView(APIView):
 
 
 class LecturasView(APIView):
+    authentication_classes = [CsrfExemptSessionAuthentication]
+    permission_classes = [AllowAny]
     parser_classes = [MultiPartParser, FormParser, JSONParser]
-
+    
     def post(self, request):
         comercial_id = request.data.get("comercial_id")
         tipo_lectura = request.data.get("tipo_lectura")  # el front lo manda, pero lo validamos contra allowed

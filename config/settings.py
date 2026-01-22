@@ -19,6 +19,10 @@ else:
 print("Cargando .env desde:", ENV_PATH)
 print("EMAIL_HOST_USER en .env:", os.getenv("EMAIL_HOST_USER"))
 print("EMAIL_HOST_PASSWORD en .env:", os.getenv("EMAIL_HOST_PASSWORD"))
+print("OPENAI_API_KEY:", os.getenv("OPENAI_API_KEY"))
+print("OPENAI_API_KEY:", os.getenv("OPENAI_API_KEY"))
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -125,12 +129,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / "static" ,
 ]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
